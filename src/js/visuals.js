@@ -1,5 +1,8 @@
-//==========HEADER SECTION==========//
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
+//==========HEADER SECTION==========//
 //Hide|Show Header ======
 const navElement = document.querySelector("nav");
 let isVisible = true;
@@ -22,3 +25,16 @@ navElement.addEventListener("transitionend", (event) => {
     navElement.style.display = "none";
   }
 });
+
+//Show animation on load ======
+navButtonsEls = document.getElementsByClassName("nav-button");
+Array.prototype.forEach.call(navButtonsEls, function(buttonEl) {
+  buttonEl.style.opacity = "0";
+})
+navButtonsAnimation();
+async function navButtonsAnimation(){
+  for (let i = 0; i < navButtonsEls.length; i++) {
+    await sleep(50);
+    navButtonsEls[i].style.opacity = "1";
+  }
+}
