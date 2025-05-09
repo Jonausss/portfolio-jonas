@@ -1,3 +1,9 @@
 .jon-shadow-centered:hover {
     box-shadow: 0 0 40px;
-}   
+}
+
+.jon-aside-button:hover {
+    .jon-aside-slide {
+        background-color: aqua;
+    }
+}

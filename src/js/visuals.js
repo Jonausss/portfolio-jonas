@@ -48,7 +48,7 @@ function noneWhenTransitionEnd(element){
 
 //Show animation on load ======
 navButtonsEls.forEach(el => {
-  buttonEl.style.opacity = "0";
+  el.style.opacity = "0";
 })
 navButtonsAnimation();
 async function navButtonsAnimation(){
