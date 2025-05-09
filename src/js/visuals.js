@@ -2,33 +2,52 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-//==========HEADER SECTION==========//
-//Hide|Show Header ======
-const navElement = document.querySelector("nav");
-let isVisible = true;
+const navEl = document.querySelector("nav");
+const navButtonsEls = document.getElementsByClassName("nav-button");
+const asideEls = document.querySelectorAll("aside");
+const asideSlidebuttonsEls = document.getElementsByClassName("jon-aside-button");
 
-window.addEventListener("scroll", () => {
+//===== LOAD PAGE =====
+asideEls.forEach(el => { //Disable all asides when page load
+  el.style.display = "none";
+  el.style.opacity = "0";
+})
+
+
+//Hide|Show Header & Aside ======
+
+window.addEventListener("scroll", () => { //Disable and enable elements when scroll
   const currentScrollPos = window.pageYOffset;
 
-  if (currentScrollPos < 50 && !isVisible) {
-    navElement.style.display = "flex";
-    navElement.style.opacity = "1";
-    isVisible = true;
-  } else if (currentScrollPos >= 50 && isVisible) {
-    navElement.style.opacity = "0";
-    isVisible = false;
-  }
-});
+  if (currentScrollPos < 50) {
+    navEl.style.display = "flex";
+    navEl.style.opacity = "1";
 
-navElement.addEventListener("transitionend", (event) => {
-  if (event.propertyName === "opacity" && !isVisible) {
-    navElement.style.display = "none";
+    asideEls.forEach(el => {
+      el.style.opacity = "0"
+      noneWhenTransitionEnd(el);
+    })
+  } 
+  else if (currentScrollPos >= 50) {
+    navEl.style.opacity = "0";
+    noneWhenTransitionEnd(navEl);
+
+    asideEls.forEach(el => {
+      el.style.opacity = "1"
+      el.style.display = "flex";
+    })
   }
 });
+function noneWhenTransitionEnd(element){
+  element.addEventListener("transitionend", (event) => {
+    if (event.propertyName === "opacity") {
+      element.style.display = "none";
+    }
+  });
+}
 
 //Show animation on load ======
-navButtonsEls = document.getElementsByClassName("nav-button");
-Array.prototype.forEach.call(navButtonsEls, function(buttonEl) {
+navButtonsEls.forEach(el => {
   buttonEl.style.opacity = "0";
 })
 navButtonsAnimation();
@@ -38,3 +57,11 @@ async function navButtonsAnimation(){
     navButtonsEls[i].style.opacity = "1";
   }
 }
+
+//========= ASIDE ===========
+//show buttons when hover
+asideSlidebuttonsEls.forEach((el, index) => {
+  el.addEventListener("hover", () => {
+    console.log("oi")
+  })
+})
